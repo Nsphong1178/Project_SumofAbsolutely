@@ -1,0 +1,172 @@
+C:/modeltech64_10.5/examples/Final-Project/testbenchSAD.vhd {1 {vcom -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/testbenchSAD.vhd
+Model Technology ModelSim SE-64 vcom 10.5 Compiler 2016.02 Feb 13 2016
+Start time: 22:28:02 on Jun 24,2024
+vcom -reportprogress 300 -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/testbenchSAD.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Loading package myLib
+-- Compiling entity testbenchSAD
+-- Compiling architecture testbench of testbenchSAD
+-- Loading entity SAD
+End time: 22:28:02 on Jun 24,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+
+} {} {}} C:/modeltech64_10.5/examples/Final-Project/Accumulator.vhd {1 {vcom -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/Accumulator.vhd
+Model Technology ModelSim SE-64 vcom 10.5 Compiler 2016.02 Feb 13 2016
+Start time: 22:28:02 on Jun 24,2024
+vcom -reportprogress 300 -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/Accumulator.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Loading package myLib
+-- Compiling entity Accumulator
+-- Compiling architecture Behavioral of Accumulator
+End time: 22:28:02 on Jun 24,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+
+} {} {}} C:/modeltech64_10.5/examples/Final-Project/dpmem.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none C:/modeltech64_10.5/examples/Final-Project/dpmem.vhd
+Model Technology ModelSim SE-64 vcom 10.5 Compiler 2016.02 Feb 13 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity dpmem
+-- Compiling architecture dpmem_arch of dpmem
+
+} {} {}} C:/modeltech64_10.5/examples/Final-Project/testController.vhd {1 {vcom -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/testController.vhd
+Model Technology ModelSim SE-64 vcom 10.5 Compiler 2016.02 Feb 13 2016
+Start time: 22:28:02 on Jun 24,2024
+vcom -reportprogress 300 -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/testController.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package myLib
+-- Compiling entity testController
+-- Compiling architecture tb_arch of testController
+End time: 22:28:02 on Jun 24,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+
+} {} {}} C:/modeltech64_10.5/examples/Final-Project/myLib.vhd {1 {vcom -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/myLib.vhd
+Model Technology ModelSim SE-64 vcom 10.5 Compiler 2016.02 Feb 13 2016
+Start time: 22:28:01 on Jun 24,2024
+vcom -reportprogress 300 -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/myLib.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package myLib
+-- Compiling package body myLib
+-- Loading package myLib
+End time: 22:28:01 on Jun 24,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+
+} {} {}} C:/modeltech64_10.5/examples/Final-Project/countern.vhd {1 {vcom -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/countern.vhd
+Model Technology ModelSim SE-64 vcom 10.5 Compiler 2016.02 Feb 13 2016
+Start time: 22:28:01 on Jun 24,2024
+vcom -reportprogress 300 -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/countern.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity counter_n
+-- Compiling architecture behav of counter_n
+End time: 22:28:01 on Jun 24,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+
+} {} {}} C:/modeltech64_10.5/examples/Final-Project/testDatapath.vhd {1 {vcom -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/testDatapath.vhd
+Model Technology ModelSim SE-64 vcom 10.5 Compiler 2016.02 Feb 13 2016
+Start time: 22:28:02 on Jun 24,2024
+vcom -reportprogress 300 -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/testDatapath.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity testDatapath
+-- Compiling architecture behavior of testDatapath
+End time: 22:28:02 on Jun 24,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+
+} {} {}} C:/modeltech64_10.5/examples/Final-Project/lib.vhd {1 {vcom -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/lib.vhd
+Model Technology ModelSim SE-64 vcom 10.5 Compiler 2016.02 Feb 13 2016
+Start time: 22:28:02 on Jun 24,2024
+vcom -reportprogress 300 -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/lib.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package lib
+-- Compiling package body lib
+-- Loading package lib
+End time: 22:28:02 on Jun 24,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+
+} {} {}} C:/modeltech64_10.5/examples/Final-Project/SAD.vhd {1 {vcom -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/SAD.vhd
+Model Technology ModelSim SE-64 vcom 10.5 Compiler 2016.02 Feb 13 2016
+Start time: 22:28:01 on Jun 24,2024
+vcom -reportprogress 300 -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/SAD.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Loading package myLib
+-- Compiling entity SAD
+-- Compiling architecture RTL of SAD
+End time: 22:28:02 on Jun 24,2024, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0
+
+} {} {}} C:/modeltech64_10.5/examples/Final-Project/controller.vhd {1 {vcom -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/controller.vhd
+Model Technology ModelSim SE-64 vcom 10.5 Compiler 2016.02 Feb 13 2016
+Start time: 22:28:02 on Jun 24,2024
+vcom -reportprogress 300 -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/controller.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package myLib
+-- Compiling entity Controller
+-- Compiling architecture Behavior of Controller
+End time: 22:28:02 on Jun 24,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+
+} {} {}} C:/modeltech64_10.5/examples/Final-Project/Regn.vhd {1 {vcom -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/Regn.vhd
+Model Technology ModelSim SE-64 vcom 10.5 Compiler 2016.02 Feb 13 2016
+Start time: 22:28:01 on Jun 24,2024
+vcom -reportprogress 300 -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/Regn.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity regn
+-- Compiling architecture Behavior of regn
+End time: 22:28:01 on Jun 24,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+
+} {} {}} C:/modeltech64_10.5/examples/Final-Project/datapath.vhd {1 {vcom -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/datapath.vhd
+Model Technology ModelSim SE-64 vcom 10.5 Compiler 2016.02 Feb 13 2016
+Start time: 22:28:02 on Jun 24,2024
+vcom -reportprogress 300 -work work -2002 -explicit -vopt C:/modeltech64_10.5/examples/Final-Project/datapath.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Loading package myLib
+-- Compiling entity Datapath
+-- Compiling architecture RTL of Datapath
+End time: 22:28:02 on Jun 24,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+
+} {} {}}

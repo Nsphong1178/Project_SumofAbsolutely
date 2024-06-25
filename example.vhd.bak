@@ -1,0 +1,138 @@
+
+-- Author: Nguyễn Kiêm Hùng
+LIBRARY ieee ;
+USE ieee.std_logic_1164.all ;
+use work.myLib.all;
+use ieee.std_logic_arith.all;
+USE ieee.std_logic_unsigned.all;
+--use ieee.numeric_std.all;
+ENTITY Datapath IS
+   GENERIC (
+            DATA_WIDTH        :     integer   := 8;     -- Word Width
+            ADDR_WIDTH        :     integer   := 2      -- Address width
+           
+    );
+   PORT ( Clock, Reset: IN STD_LOGIC ;
+          Start: IN STD_LOGIC ;
+          
+          Min_Sel, Addr_Sel: IN STD_LOGIC; -- The signal selects the input data and address for memory
+          Int_WE, WE: IN STD_LOGIC;
+          Int_RE, RE: IN STD_LOGIC;
+          
+          LD_i, LD_j: IN STD_LOGIC; -- Load signal for Counter i
+          En_i, En_j: IN STD_LOGIC;
+          EN_A, EN_B: IN STD_LOGIC;
+          data_in : IN STD_LOGIC_VECTOR (DATA_WIDTH - 1 downto 0);
+          addr_in : IN STD_LOGIC_VECTOR (ADDR_WIDTH - 1 downto 0);
+          Zi,Zj : OUT STD_LOGIC;
+	        A_gt_B : OUT STD_LOGIC;
+	        data_out : OUT STD_LOGIC_VECTOR (DATA_WIDTH - 1 downto 0) ) ;
+   END Datapath ;
+ARCHITECTURE RTL OF Datapath IS
+  CONSTANT K   : integer   := 2**ADDR_WIDTH;
+  --TYPE State_type IS (A, B, C) ;
+  SIGNAL State : STD_LOGIC_VECTOR(4 DOWNTO 0) ;
+  -- Signal for connecting to Mem_block
+  signal nReset :      std_logic := '0';
+  signal addr : std_logic_vector( ADDR_WIDTH-1 downto 0);
+  signal  wen  :       std_logic;
+  signal  datain :  std_logic_vector(DATA_WIDTH -1 downto 0);
+  signal  ren :       std_logic;
+  signal i,i_plus_1,j,i_mux_j : std_logic_vector( ADDR_WIDTH-1 downto 0);
+  signal A,B,A_mux_B : std_logic_vector(DATA_WIDTH -1 downto 0);
+  signal dataout :   std_logic_vector(DATA_WIDTH -1 downto 0);
+BEGIN
+  nReset <= not Reset;
+  i_mux_j <= i when addr_sel = '0' else j;
+  A_mux_B <= A when Min_sel = '0' else B;
+  addr <= ADDR_in when Start = '0' else i_mux_j;
+  datain <= data_in when Start = '0' else A_mux_B;
+  wen <= int_WE or WE;
+  ren <= int_RE or RE;
+ -- Memory block
+ Mem_Block:  dpmem
+    generic map
+    (
+      DATA_WIDTH => DATA_WIDTH,
+      ADDR_WIDTH => ADDR_WIDTH
+      )
+     
+     port map (
+       
+      clk      => clock,
+      nReset   => nReset,
+      addr     => addr,
+      Wen      => wen,
+      Datain   => datain,
+      
+      Ren      => ren,
+      
+      Dataout  => dataout
+      
+      );
+  --------------
+  -- Register A
+  RegA: regn
+  generic map
+     (
+      N => DATA_WIDTH
+      )
+    port map (
+      D => dataout, 
+      Reset   => Reset,
+      clock   => clock,
+      En      => En_A,
+      Q  => A
+      
+      );  
+  -- Register B
+  RegB: regn
+  generic map
+     (
+      N => DATA_WIDTH
+      )
+    port map (
+      D => dataout, 
+      Reset   => Reset,
+      clock   => clock,
+      En      => En_B,
+      Q  => B
+      
+      );     
+ -- Comrator A>B
+ A_gt_B <= '1' WHEN A>B ELSE '0';     
+-- Counter i
+Cnt_i: Counter_n
+  generic map
+     (
+      N => ADDR_WIDTH
+      )
+    port map (
+      clk   => clock,
+      Reset   => Reset,
+      Enable  => En_i,
+      Load    => LD_i,
+      Din => (OTHERS => '0'), 
+      Count  => i
+       ); 
+  zi <= '0' WHEN i < conv_std_logic_vector(K-1,ADDR_WIDTH) ELSE '1';      
+-- Counter j
+Cnt_j: Counter_n
+  generic map
+     (
+      N => ADDR_WIDTH
+      )
+    port map (
+      clk   => clock,
+      Reset   => Reset,
+      Enable  => En_j,
+      Load    => LD_j,
+      Din => i_plus_1, 
+      Count  => j
+       ); 
+  i_plus_1 <= i + 1;
+  zj <= '0' WHEN j /= conv_std_logic_vector(0,ADDR_WIDTH) ELSE '1';      
+  -- Output
+    data_out <= Dataout;
+    
+END RTL;   

@@ -1,0 +1,161 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.std_logic_arith.ALL;
+USE ieee.std_logic_unsigned.ALL;
+
+ENTITY testDatapath IS
+END testDatapath;
+
+ARCHITECTURE behavior OF testDatapath IS 
+
+    -- Component Declaration for the Unit Under Test (UUT)
+    COMPONENT Datapath
+    GENERIC (
+        DATA_WIDTH : integer := 8;
+        ADDR_WIDTH : integer := 2
+    );
+    PORT(
+        Clock, Reset, Start : IN std_logic;
+        WE_A, WE_B : IN std_logic;
+        RE_A, RE_B : IN std_logic;
+        LD_i, En_i, EN_Sum : IN std_logic;
+        dataA, dataB : IN std_logic_vector(DATA_WIDTH - 1 DOWNTO 0);
+        addrIn_A, addrIn_B : IN std_logic_vector(ADDR_WIDTH - 1 DOWNTO 0);
+        test_i : OUT std_logic;
+        Sum_out : OUT std_logic_vector(DATA_WIDTH - 1 DOWNTO 0)
+    );
+    END COMPONENT;
+   
+   -- Inputs
+   signal Clock : std_logic := '0';
+   signal Reset : std_logic := '0';
+   signal Start : std_logic := '0';
+   signal WE_A : std_logic := '0';
+   signal WE_B : std_logic := '0';
+   signal RE_A : std_logic := '0';
+   signal RE_B : std_logic := '0';
+   signal LD_i : std_logic := '0';
+   signal En_i : std_logic := '0';
+   signal EN_Sum : std_logic := '0';
+   signal dataA : std_logic_vector(7 downto 0) := (others => '0');
+   signal dataB : std_logic_vector(7 downto 0) := (others => '0');
+   signal addrIn_A : std_logic_vector(1 downto 0) := (others => '0');
+   signal addrIn_B : std_logic_vector(1 downto 0) := (others => '0');
+
+    -- Outputs
+   signal test_i : std_logic;
+   signal Sum_out : std_logic_vector(7 downto 0);
+
+   -- Clock period definition
+   constant Clock_period : time := 10 ns;
+
+BEGIN
+
+   -- Instantiate the Unit Under Test (UUT)
+   uut: Datapath
+   GENERIC MAP (
+        DATA_WIDTH => 8,
+        ADDR_WIDTH => 2
+    )
+   PORT MAP (
+        Clock => Clock,
+        Reset => Reset,
+        Start => Start,
+        WE_A => WE_A,
+        WE_B => WE_B,
+        RE_A => RE_A,
+        RE_B => RE_B,
+        LD_i => LD_i,
+        En_i => En_i,
+        EN_Sum => EN_Sum,
+        dataA => dataA,
+        dataB => dataB,
+        addrIn_A => addrIn_A,
+        addrIn_B => addrIn_B,
+        test_i => test_i,
+        Sum_out => Sum_out
+    );
+
+   -- Clock process definitions
+   Clock_process :process
+   begin
+		Clock <= '0';
+		wait for Clock_period/2;
+		Clock <= '1';
+		wait for Clock_period/2;
+   end process;
+
+   -- Stimulus process
+   stim_proc: process
+   begin		
+      -- hold reset state for 20 ns.
+      Reset <= '1';
+      wait for 20 ns;	
+      Reset <= '0';
+        
+      wait for Clock_period;
+        
+      -- Write data to Memory A and Memory B
+      WE_A <= '1';
+      dataA <= "00000001"; -- 1
+      addrIn_A <= "00";
+      wait for Clock_period;
+        
+      WE_A <= '1';
+      dataA <= "00000010"; -- 2
+      addrIn_A <= "01";
+      wait for Clock_period;
+
+      WE_B <= '1';
+      dataB <= "00000010"; -- 3
+      addrIn_B <= "00";
+      wait for Clock_period;
+        
+      WE_B <= '1';
+      dataB <= "00000101"; -- 5
+      addrIn_B <= "01";
+      wait for Clock_period;
+        
+      WE_A <= '0';
+      WE_B <= '0';
+        
+      -- Enable Read for Memory A and Memory B
+      RE_A <= '1';
+      addrIn_A <= "00";
+      wait for Clock_period;
+
+      RE_A <= '1';
+      addrIn_A <= "01";
+      wait for Clock_period;
+
+      RE_B <= '1';
+      addrIn_B <= "00";
+      wait for Clock_period;
+
+      RE_B <= '1';
+      addrIn_B <= "01";
+      wait for Clock_period;
+        
+      -- Load and Enable Counter
+      LD_i <= '1';
+      En_i <= '1';
+      wait for Clock_period;
+        
+      LD_i <= '0';
+      En_i <= '1';
+        
+      -- Enable Sum Calculation
+      EN_Sum <= '1';
+      wait for Clock_period;
+      EN_Sum <= '0';
+        
+      -- Wait for few clock cycles
+      wait for 10 * Clock_period;
+        
+      -- Add more stimulus here if necessary
+
+      -- End simulation
+      wait;
+   end process;
+
+END;

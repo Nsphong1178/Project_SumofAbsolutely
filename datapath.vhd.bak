@@ -1,0 +1,102 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+use ieee.std_logic_unsigned.all;
+
+use work.myLib.all;
+
+entity Datapath is
+    generic (
+        DATA_WIDTH : integer := 8;
+        ADDR_WIDTH : integer := 2
+    );
+    port (
+        Clock, Reset, Start : in std_logic;
+        WE_A, WE_B : in std_logic;
+        RE_A, RE_B : in std_logic;
+        LD_i, En_i, EN_Sum : in std_logic;
+        dataA, dataB : in std_logic_vector(DATA_WIDTH - 1 downto 0);
+        addrIn_A, addrIn_B : in std_logic_vector(ADDR_WIDTH - 1 downto 0);
+        test_i : out std_logic;
+        Sum_out : out std_logic_vector(DATA_WIDTH - 1 downto 0)
+    );
+end entity Datapath;
+
+architecture RTL of Datapath is
+    constant M : integer := 2**ADDR_WIDTH;
+    signal nReset : std_logic := '0';
+    signal Add_A, Add_B : std_logic_vector(ADDR_WIDTH - 1 downto 0);
+    signal datain_A, datain_B : std_logic_vector(DATA_WIDTH - 1 downto 0);
+    signal A, B, AsubB, BsubA, AmuxB, Sum, Sum_old : std_logic_vector(DATA_WIDTH - 1 downto 0);
+    signal i : std_logic_vector(ADDR_WIDTH - 1 downto 0);
+    signal AcompB : std_logic;
+begin
+    nReset <= not Reset;
+    Add_A <= addrIn_A;
+    Add_B <= addrIn_B;
+    datain_A <= dataA;
+    datain_B <= dataB;
+    AcompB <= '0' when A > B else '1';
+    AsubB <= A - B;
+    BsubA <= B - A;
+    AmuxB <= AsubB when AcompB = '0' else BsubA;
+
+  
+ Adder: Accumulator 
+    Port map (
+        clk     => Clock,
+        reset    => Reset,
+        enable => EN_Sum,
+        A        => AmuxB,
+        SUM      => Sum_out
+    );
+
+    Mem_Block_A: dpmem
+        generic map (
+            DATA_WIDTH => DATA_WIDTH,
+            ADDR_WIDTH => ADDR_WIDTH
+        )
+        port map (
+            clk => Clock,
+            nReset => nReset,
+            addr => Add_A,
+            Wen => WE_A,
+            Datain => datain_A,
+            Ren => RE_A,
+            Dataout => A
+        );
+
+    -- Dual port Memory block B
+    Mem_Block_B: dpmem
+        generic map (
+            DATA_WIDTH => DATA_WIDTH,
+            ADDR_WIDTH => ADDR_WIDTH
+        )
+        port map (
+            clk => Clock,
+            nReset => Reset,
+            addr => Add_B,
+            Wen => WE_B,
+            Datain => datain_B,
+            Ren => RE_B,
+            Dataout => B
+        );
+
+    -- Counter i
+    Cnt_i: Counter_n
+        generic map (
+            N => 2
+        )
+        port map (
+            clk => Clock,
+            reset => Reset,
+            enable => En_i,
+            load => LD_i,
+            Din => (others => '0'),
+            count => i
+        );
+
+    test_i <= '0' WHEN i < conv_std_logic_vector(2,ADDR_WIDTH) ELSE '1';  
+
+end RTL;
+

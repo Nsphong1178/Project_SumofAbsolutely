@@ -1,0 +1,73 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.std_logic_unsigned.all;
+USE work.myLib.all;
+
+ENTITY SAD IS
+   GENERIC (
+      DATA_WIDTH : integer := 8;     -- Word Width
+      ADDR_WIDTH : integer := 2      -- Address width
+   );
+   PORT (
+      Clock, Reset : IN STD_LOGIC;
+      Start : IN STD_LOGIC;
+      WE_A, WE_B : IN STD_LOGIC;
+      dataA, dataB : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 downto 0);
+      addrIn_A, addrIn_B : IN std_logic_vector(ADDR_WIDTH - 1 downto 0);
+      Done : OUT STD_LOGIC;
+      Sum_out : OUT STD_LOGIC_VECTOR(DATA_WIDTH - 1 downto 0)
+   );
+END SAD;
+
+
+ARCHITECTURE RTL OF SAD IS
+    SIGNAL LD_i, EN_Sum, test_i, EN_i : STD_LOGIC;
+    SIGNAL RE_A, RE_B, WE_A_1, WE_B_1 : STD_LOGIC;
+BEGIN
+    CRTL_U: Controller
+        GENERIC MAP(
+            DATA_WIDTH => DATA_WIDTH,
+            ADDR_WIDTH => ADDR_WIDTH
+        )
+        PORT MAP(
+            Clock => Clock,
+            Reset => Reset,
+            Start => Start,
+            RE_A => RE_A,
+            RE_B => RE_B,
+            WE_A => WE_A_1,  -- These are IN ports, no assignment here
+            WE_B => WE_B_1,  -- These are IN ports, no assignment here
+            LD_i => LD_i,
+            En_i => En_i,
+            EN_Sum => EN_Sum,
+            test_i => test_i,
+            Done => Done
+        );
+
+    Datapath_U: Datapath
+        GENERIC MAP(
+            DATA_WIDTH => DATA_WIDTH,
+            ADDR_WIDTH => ADDR_WIDTH
+        )
+        PORT MAP (
+            Clock => Clock,
+            Reset => Reset,
+            Start => Start,
+            WE_A => WE_A,  -- These are IN ports, no assignment here
+            WE_B => WE_B,  -- These are IN ports, no assignment here
+            RE_A => RE_A,
+            RE_B => RE_B,
+            LD_i => LD_i,
+            En_i => En_i,
+            EN_Sum => EN_Sum,
+            dataA => dataA,
+            dataB => dataB,
+            addrIn_A => addrIn_A,
+            addrIn_B => addrIn_B,
+            test_i => test_i,
+            Sum_out => Sum_out
+        );
+        
+END RTL;
+
+
